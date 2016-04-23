@@ -10,5 +10,5 @@ chdir $currentDir;
 my @unneededFiles = glob("*~ *#");
 
 foreach my $file (@unneededFiles) {
-    system("rm -rf $file");
+    unlink $file || warn "Could not unlink $file: $!";
 }
