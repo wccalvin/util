@@ -1,20 +1,24 @@
 #!/usr/bin/env perl
 
-use strict;
-use warnings;
 use 5.010;
 use Cwd;
+use File::Find::Rule;
+use File::Basename qw(basename);
+use Data::Dump;
 
 my $currentDir = getcwd;
-chdir $currentDir;
-my @unneededFiles = glob("*~ *# *pyc");
-my $unneededFiles = @unneededFiles;
+my @fullPath = File::Find::Rule->file->name('*.pyc')->in($path);
 
-if ($unneededFiles > 0) {
-    foreach my $file (@unneededFiles) {
-        unlink $file || warn "Could not unlink $file: $!";
-    }
-} else {
-    say "INFO: No extensions removed."
-}
+print Dumper @fullPath;
 
+
+# my @unneededFiles = glob("*~ *# *pyc");
+# my $unneededFiles = @unneededFiles;
+#
+# if ($unneededFiles > 0) {
+#     foreach my $file (@unneededFiles) {
+#         unlink $file || warn "Could not unlink $file: $!";
+#     }
+# } else {
+#     say "INFO: No extensions removed."
+# }
